@@ -1,0 +1,8 @@
+{
+    "name": "wydecoder",
+    "version": "0.0.1",
+    "dependencies": {
+        "node-addon-api": "^3.0.0"
+    }
+}
+
