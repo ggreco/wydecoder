@@ -41,6 +41,31 @@
               '-framework AudioToolbox',
               '-lz', '-lbz2', '-llzma'
           ]
+        }],
+        ['OS=="linux"', {
+          'libraries' : [
+              '../extlib_linux/libavformat.a',
+              '../extlib_linux/libavcodec.a',
+              '../extlib_linux/libavutil.a',
+              '../extlib_linux/libswresample.a',
+              '../extlib_linux/libswscale.a',
+              '../extlib_linux/libx264.a',
+              '../extlib_linux/libfdk-aac.a',
+              '-lSDL2', '-lz', '-lbz2', '-llzma'
+          ]
+        }],
+        ['OS=="win"', {
+          'libraries' : [
+              '../extlib_w64/libavformat.a',
+              '../extlib_w64/libavcodec.a',
+              '../extlib_w64/libavutil.a',
+              '../extlib_w64/libswresample.a',
+              '../extlib_w64/libswscale.a',
+              '../extlib_w64/libSDL2.a',
+              '../extlib_w64/libx264.a',
+              '../extlib_w64/libfdk-aac.a',
+              '-lz', '-lbz2'
+          ]
         }]
       ]
     }
