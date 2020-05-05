@@ -73,6 +73,15 @@ queued_audio_seconds() const
 }
 
 double VideoDecoder::
+next_pts() const {
+    auto frame = frames_.next();
+    if (frame)
+        return ((double)frame->pts - start_time_) * time_base_;
+    else
+        return -1;
+}
+
+double VideoDecoder::
 total_length() const {
     return ((double)ic_->duration / AV_TIME_BASE);
 }

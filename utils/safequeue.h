@@ -39,6 +39,13 @@ public:
     q.pop();
     return val;
   }
+  T next() const {
+      std::lock_guard<std::mutex> lock(m);
+      if (!q.empty())
+        return q.front();
+      
+      return T();
+  }
    /** Get multiple elements from the queue, if the queue is empty wait at most msecs milliseconds, the vector may be returned empty.*/
   void dequeue(std::vector<T> &results, int msecs) {
     results.clear();

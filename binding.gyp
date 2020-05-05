@@ -2,12 +2,13 @@
   "targets": [
     {
       "target_name": "wydecoder",
-      "cflags!": [ "-fno-exceptions" ],
-      "cflags_cc!": [ "-fno-exceptions" ],
+      "cflags!": [ "-fno-exceptions", "-fno-rtti" ],
+      "cflags_cc!": [ "-fno-exceptions", "-fno-rtti" ],
       "cflags": [ "-std=c++14 -O3" ],
       "sources": [
         "decoder/decoder_base.cpp",
         "decoder/simple_decoder.cpp",
+        "decoder/reverse_decoder.cpp",
         "utils/thread.cpp",
         "utils/logger.cpp",
         "module.cpp"
@@ -22,7 +23,9 @@
       'conditions': [
         ['OS=="mac"', {
           'xcode_settings': {
-            'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
+            'MACOSX_DEPLOYMENT_TARGET': '10.9',
+            'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
+            'GCC_ENABLE_CPP_RTTI': 'YES'
           },
           'libraries' : [
               '../extlib_osx/libavformat.a',

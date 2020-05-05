@@ -48,7 +48,6 @@ public:
     std::string png(AVFrame *) const;
     void seek(double sec, bool to_iframe = false);
     bool eof() const { return eof_ && frames_.empty(); }
-    AVFormatContext* get_avFormatContext() const { return ic_; }
     double queued_audio_seconds() const;
     bool has_audio() const { return audio_ != 0; }
     void start_audio(bool flag);
@@ -59,6 +58,7 @@ public:
     double audio_time_base() const { return audio_time_base_; }
     bool audio_started() const;
     bool open_audio();
+    double next_pts() const;
     virtual bool decode() { return false; };
     virtual void nothread_seek(double sec, bool to_iframe = false);
 };
