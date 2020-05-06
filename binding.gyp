@@ -51,6 +51,16 @@
           'include_dirs': [ "/usr/include/SDL2" ]
         }],
         ['OS=="win"', {
+          "copies":[{ 
+                        'destination': './build/Release',
+                        'files':[
+                            "<(module_root_dir)/dlls/SDL.dll",
+                            "<(module_root_dir)/dlls/avcodec-58.dll",
+                            "<(module_root_dir)/dlls/avutil-56.dll",
+                            "<(module_root_dir)/dlls/avformat-58.dll",
+                            "<(module_root_dir)/dlls/swscale-5.dll",
+                            "<(module_root_dir)/dlls/swresample-3.dll",
+                        ]}],
           'include_dirs': [ "ext_inc/SDL2", "ext_inc_win" ],
           "msvs_settings": {
               "VCCLCompilerTool": {

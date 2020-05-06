@@ -8,15 +8,12 @@ environment:
 
 configuration: Release
 platform:
-  - x86
   - x64
 
 install:
   - SET PATH=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;%PATH%
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - npm install -g node-gyp
-  - npm install node-addon-api
-  - node-gyp rebuild --verbose
+  - npm install
 
 test_script:
   - node --version
