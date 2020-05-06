@@ -49,9 +49,8 @@
           'include_dirs': [ "/usr/include/SDL2" ]
         }],
         ['OS=="win"', {
+          'libraries': [ "/LIBPATH:<(module_root_dir)\extlib_win\<!@(node -e \"console.log('%s',require('process').arch);\")"],
           'include_dirs': [ "ext_inc/SDL2", "ext_inc_win" ],
-          'libraries' : [
-          ],
           "msvs_settings": {
               "VCCLCompilerTool": {
                 "ExceptionHandling": "2"
