@@ -42,7 +42,7 @@
           'cflags': [ "-fPIC" ],
           'ldflags': [ "-Wl,-Bsymbolic" ],
           'libraries' : [
-              "<!@(node -e \"console.log('-L../extlib_linux/%s',require('process').arch);\")"
+              "<!@(node -e \"console.log('-L../extlib_linux/%s',require('process').arch);\")",
               '-lssl', '-lcrypto', '-lrt', '-ldl'
           ],
           'include_dirs': [ "/usr/include/SDL2" ]
