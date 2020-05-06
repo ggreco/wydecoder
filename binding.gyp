@@ -54,7 +54,7 @@
           "copies":[{ 
                         'destination': './build/Release',
                         'files':[
-                            "<(module_root_dir)/dlls/SDL.dll",
+                            "<(module_root_dir)/dlls/SDL2.dll",
                             "<(module_root_dir)/dlls/avcodec-58.dll",
                             "<(module_root_dir)/dlls/avutil-56.dll",
                             "<(module_root_dir)/dlls/avformat-58.dll",
