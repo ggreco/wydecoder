@@ -37,7 +37,7 @@ deploy:
     draft: false
     prerelease: true
     auth_token:
-      secure: q+C/smnfLsdgIyfPxEIz1zfLYz8KSHdcen87h4H/+ovQ8YwEkXTyjEV4bX9QkO/H
+      secure: cCbWEIy0w5CUPBLIPbI6PWMJk1REyRhoKzDxfcCju9ztKV9HVYYMHXSawW8mefUw
     on:
       appveyor_repo_tag: true
       nodejs_version: "Current"
