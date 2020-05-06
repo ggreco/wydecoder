@@ -128,11 +128,11 @@ inline bool mcopy(const std::string &src, const std::string &dst) {
     char *buffer = (char *)malloc(buffersize);
     long long rc = 0;
     while (rc < stat_source.st_size) {
-        size_t len = ::read(source, buffer, buffersize);
+        ssize_t len = ::read(source, buffer, buffersize);
         if (len < 0)
             break;
 
-        size_t res = ::write(dest, buffer, len);
+        ssize_t res = ::write(dest, buffer, len);
         if (res < 0)
             break;
 

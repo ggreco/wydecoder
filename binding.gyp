@@ -17,7 +17,8 @@
         "<!@(node -p \"require('node-addon-api').include\")",
         "decoder",
         "utils",
-        "ext_inc/SDL2"
+        "ext_inc/SDL2",
+        "ext_inc"
       ],
       'defines': [ ],
       'conditions': [
@@ -43,6 +44,8 @@
           ]
         }],
         ['OS=="linux"', {
+          'cflags': [ "-fPIC" ],
+          'ldflags': [ "-Wl,-Bsymbolic" ],
           'libraries' : [
               '../extlib_linux/libavformat.a',
               '../extlib_linux/libavcodec.a',
@@ -51,7 +54,8 @@
               '../extlib_linux/libswscale.a',
               '../extlib_linux/libx264.a',
               '../extlib_linux/libfdk-aac.a',
-              '-lSDL2', '-lz', '-lbz2', '-llzma'
+              '-lSDL2', '-lz', '-lbz2', '-llzma', 
+              '-lssl', '-lcrypto', '-lrt', '-ldl'
           ]
         }],
         ['OS=="win"', {
