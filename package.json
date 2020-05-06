@@ -1,6 +1,6 @@
 {
   "name": "@wyscout/wydecoder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "node-addon-api": "^3.0.0",
     "node-gyp-build": "^4.2.2"
@@ -11,7 +11,9 @@
   },
   "author": "Gabriele Greco (gabriele.greco@wyscout.com)",
   "scripts": {
-    "install": "node-gyp-build"
+    "prebuild": "prebuildify --napi",
+    "install": "node-gyp-build",
+    "postinstall": "rm -rf ext_inc extlib_*"
   },
   "bugs": {
     "url": "https://github.com/wyscout/node-video/issues"
@@ -19,7 +21,9 @@
   "homepage": "https://github.com/wyscout/node-video#readme",
   "description": "Native module to decode video in a node or electron application",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "prebuildify": "^4.0.0"
+  },
   "keywords": [
     "node",
     "avcodec",
