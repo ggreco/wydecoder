@@ -20,6 +20,7 @@
         "ext_inc"
       ],
       "libraries": [  
+        "-L<(module_root_dir)/extlib_<!@(node -e \"console.log('%s/%s',require('process').platform,require('process').arch);\")",
         '-lavcodec', '-lavformat', '-lavutil', '-lswscale', '-lswresample', '-lSDL2'
       ],
       'defines': [ ],
@@ -31,7 +32,6 @@
             'GCC_ENABLE_CPP_RTTI': 'YES'
           },
           'libraries' : [
-              '-L../extlib_osx',
               '-lfdk-aac', '-lx264', '-lz', '-lbz2',
               '-framework Cocoa',
               '-framework CoreAudio',
@@ -43,7 +43,6 @@
           'cflags': [ "-fPIC" ],
           'ldflags': [ "-Wl,-Bsymbolic" ],
           'libraries' : [
-              "<!@(node -e \"console.log('-L../extlib_linux/%s',require('process').arch);\")",
               '-lfdk-aac', '-lx264', '-lz', '-lbz2',
               '-lssl', '-lcrypto', '-lrt', '-ldl'
           ],
@@ -52,8 +51,6 @@
         ['OS=="win"', {
           'include_dirs': [ "ext_inc/SDL2", "ext_inc_win" ],
           'libraries' : [
-              "<!@(node -e \"console.log('/LIBPATH:../extlib_win/%s',require('process').arch);\")",
-              '-lz', '-lbz2'
           ],
           "msvs_settings": {
               "VCCLCompilerTool": {
