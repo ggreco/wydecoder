@@ -71,7 +71,12 @@
               '../extlib_w64/libx264.a',
               '../extlib_w64/libfdk-aac.a',
               '-lz', '-lbz2'
-          ]
+          ],
+          "msvs_settings": {
+              "VCCLCompilerTool": {
+                "ExceptionHandling": "2"
+              }
+          }
         }]
       ]
     }

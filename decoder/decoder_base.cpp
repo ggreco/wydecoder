@@ -22,7 +22,7 @@ void planar_samples(const AVFrame *f, int channels, VideoDecoder *p)
 #ifndef _MSC_VER
     T buffer[f->nb_samples * channels];
 #else
-    T *buffer = (T*)_alloca(sizeof(T) * ->nb_samples * channels);
+    T *buffer = (T*)_alloca(sizeof(T) * f->nb_samples * channels);
 #endif
     T *ptr = buffer;
     size_t delta = 0;

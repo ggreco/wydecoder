@@ -22,7 +22,7 @@ worker_thread()
     double done = 0;
     int64_t next_final = int64_t(start_ / time_base_) + 1LL;
     for (int loops = 0; (length_ < 0 || done < length_) && running() && start_ > 0; ++loops) {
-        const double buffer_size = std::min(start_, BUFFER_SIZE);
+        const double buffer_size = std::min<double>(start_, BUFFER_SIZE);
         int64_t final_pts = next_final;
 
         avcodec_flush_buffers(vctx_);
