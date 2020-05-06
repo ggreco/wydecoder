@@ -19,8 +19,10 @@
         "utils",
         "ext_inc"
       ],
+      "library_dirs": [
+        "<(module_root_dir)/extlib_<!@(node -e \"console.log('%s/%s',require('process').platform,require('process').arch);\")"
+      ],
       "libraries": [  
-        "-L<(module_root_dir)/extlib_<!@(node -e \"console.log('%s/%s',require('process').platform,require('process').arch);\")",
         '-lavcodec', '-lavformat', '-lavutil', '-lswscale', '-lswresample', '-lSDL2'
       ],
       'defines': [ ],
@@ -49,7 +51,6 @@
           'include_dirs': [ "/usr/include/SDL2" ]
         }],
         ['OS=="win"', {
-          'libraries': [ "/LIBPATH:<(module_root_dir)\extlib_win\<!@(node -e \"console.log('%s',require('process').arch);\")"],
           'include_dirs': [ "ext_inc/SDL2", "ext_inc_win" ],
           "msvs_settings": {
               "VCCLCompilerTool": {
