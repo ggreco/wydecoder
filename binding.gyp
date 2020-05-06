@@ -59,6 +59,7 @@
           ]
         }],
         ['OS=="win"', {
+          'include_dirs': [ "ext_inc_win" ],
           'libraries' : [
               '../extlib_w64/libavformat.a',
               '../extlib_w64/libavcodec.a',
