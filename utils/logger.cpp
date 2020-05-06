@@ -14,6 +14,9 @@
 
 #endif
 
+
+static const char *errlevel[] = { "SYS", "ERR", "WRN", "INF", "DBG", "UND", "UND" };
+
 #include <cstdarg>
 
 // This should be resolved better in the future

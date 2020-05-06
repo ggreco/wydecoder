@@ -5,7 +5,6 @@
 
 #if defined(_MSC_VER)
 #pragma warning( disable : 4996 )
-#include "windows_helpers.h"
 #endif
 
 extern "C" {

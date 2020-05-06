@@ -13,7 +13,6 @@ addons:
     - gcc-multilib
     - g++-multilib
 os:
-- osx
 - linux
 before_install:
 - sudo apt-get install libsdl2-dev
@@ -22,6 +21,7 @@ before_deploy:
 - npm run prebuild
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ARCH=ia32 npm run prebuild; fi
 - tar --create --verbose --file="$ARCHIVE_NAME" --directory "$TRAVIS_BUILD_DIR/prebuilds"
+- echo "Created archive $ARCHIVE_NAME"
   .
 deploy:
   provider: releases
@@ -32,5 +32,4 @@ deploy:
   on:
     tags: true
     node: node
-  api_key:
-    secure: "HGY8yo+bEBKIRkol+AYuDIIx/gzw3H8HWRpzXPHvUvJ8p1hRbKzTxjgDisvRbncICtkMCI/0+3BqnLBzm30N0LSlJzZT/wQJ4nfCRRdoZF0wvMUdGsW9CXDCQFYnwobAgaQRhI0zB1rLr+wzeLSQ7OW6Ajkl7NAn2b7mXpA/xd++0Yc0hST7yIPMCuGoyKvNjEGCIhk4uQpIs86wg3adkutZ2Qn9VipjTAZRVpd2rtRplK9dVO4jCSqQJx/vWXkn3wT1fjB/i2RRZAsxdUbS1ojxliymGamM694YOLKe/qCXye13mtJBqgazRTKFr0YNFtE5qvVQIHQNaTUV9RMWk44vqirbyLkLXJ30kNFai3NPuAl09akTzAVPPsbRzGMNfNPm1ITwuwP8tJKF3/SDq+K3PINrh73mVG8uVLt1I5t+Ji+JIYHtvaTm9Yu0xHTcDAQZGX9g58pyxMPjL3wFQhrQAIkSj7NEZkvKJxADopg5AtLOmRoetLYexlmqol+riSaYctFCBCGPV8p/UNckaEYHMHbMw9Y+nWLVRczcL5FyuZgrK4HwRmUHuxAO1cTO5ls9JuA6YqzixiibEdyWPjFYkNppMMh29Vx7fCQlrg6G059HHo0A35cPOx8AHi5k6+Zpa/w7CfEI+jFLjLKwu0ISalZBcVVcaSCZ/Jz2YLY="
+  api_key: "68fbfae12053ad6d65dc9c21279fa9749e5f6dcb"

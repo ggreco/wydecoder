@@ -17,7 +17,6 @@
         "<!@(node -p \"require('node-addon-api').include\")",
         "decoder",
         "utils",
-        "ext_inc/SDL2",
         "ext_inc"
       ],
       'defines': [ ],
@@ -41,7 +40,8 @@
               '-framework CoreAudio',
               '-framework AudioToolbox',
               '-lz', '-lbz2', '-llzma'
-          ]
+          ],
+          'include_dirs': [ "ext_inc/SDL2", "ext_inc_mac" ]
         }],
         ['OS=="linux"', {
           'cflags': [ "-fPIC" ],
@@ -56,10 +56,11 @@
               '../extlib_linux/libfdk-aac.a',
               '-lSDL2', '-lz', '-lbz2', '-llzma', 
               '-lssl', '-lcrypto', '-lrt', '-ldl'
-          ]
+          ],
+          'include_dirs': [ "/usr/include/SDL2" ]
         }],
         ['OS=="win"', {
-          'include_dirs': [ "ext_inc_win" ],
+          'include_dirs': [ "ext_inc/SDL2", "ext_inc_win" ],
           'libraries' : [
               '../extlib_w64/libavformat.a',
               '../extlib_w64/libavcodec.a',

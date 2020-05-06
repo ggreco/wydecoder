@@ -52,8 +52,6 @@ extern "C" {
 #define SetAppName(x) Logger::Instance().name(x)
 #define LOG_INSTANCE Logger::Instance()
 
-static const char *errlevel[] = { "SYS", "ERR", "WRN", "INF", "DBG", "UND", "UND" };
-
 class Logger
 {
     public:
