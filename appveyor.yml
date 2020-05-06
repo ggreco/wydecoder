@@ -14,6 +14,7 @@ platform:
 install:
   - SET PATH=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;%PATH%
   - ps: Install-Product node $env:nodejs_version $env:platform
+  - npm install -g node-gyp
   - node-gyp rebuild --verbose
 
 test_script:
