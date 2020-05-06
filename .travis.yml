@@ -21,17 +21,15 @@ before_deploy:
 - npm run prebuild
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ARCH=ia32 npm run prebuild; fi
 - ls -R prebuilds
+- echo "Created archive $ARCHIVE_NAME" 
 - tar --create --verbose --file="$ARCHIVE_NAME" --directory prebuilds
-- echo "Created archive $ARCHIVE_NAME"
-  .
+.
 deploy:
   provider: releases
-  draft: false
-  prerelease: true
+  api_key:
+    secure: jV1un/jU2UyqkyGvkh6J4G5bJ5xl2H1MemaDhMg5eKjEsw4aP4ucNjm//h9MpStZMj6Z0w6/GhNkq35p1oEMdnFP6R4nK0Qe4nINm7U1/lJtfmv+YtDyVYcOWW//hhx9Xh5mnwqy9Vi1JeOI0bgSJ+dWvhtXNv4zBHyTL1eIPjjEcoZLoG/XWuNXME4H8J1/6/HvMgHlZ8lYzc86ntfwQTzOVQ4+g6QYe/oEy8tba/KnbIeTBQn/7MJ06exccjSTAmiyQseV8W7fbE/oa4xHJ1IzpRMPl/Q1tXcSyZxjYBqY24E1Tx/YhmoBuWe1jVqgekqdOa+m1tzXkPdDvnt3xhNtBZSYNdgaNESJFwycvRXYdvrq9v2q/0QJIn1oHWOT4veoLVom2kABTkdu8kX9z6V3oRZwdxYv7Y3Wd71AFxmwGdKDM8Nq0+56bRzQm2RVxbAvRoilcskCNy05wfeZcwvsdrwEMk1W5VGZZAZCodlNZQS3MR5Ch4Q8uMLGK95lwZEEOlcBGqtg+EsUbdOltwDMBjMmD2hpjf5CKqDDG1Q0tpCnV+ITTiylBl22pCQ8I1+lNzU7OEFNo+6EW1ceu/obi+IFKeLPGfGamhr1KY4tA888agxckkLVXTp9YzeJIh/D7utmjQQrFH9k+lMGAv6ko0mOnHIilECVXbyRbIQ=
   file: "$ARCHIVE_NAME"
-  skip_cleanup: true
   on:
     tags: true
-    node: node
-  api_key:
-    secure: "qyGthxmCMC+zRcdmSrWKQo42VxDfX2s4v6bGl1tspklEyY4y52HMUYyPjzRkktO9gNZqJxHon9TcxuakuWYrzfwPz+w1DDIGSIm4V4P/6flqiTZcZHk8zR9JHSDlGwVoyGGaNf5YcngQFSfys4SAbiHLGmHQJQKeDesF53bTX6ycUMACJAnshIi9MGGjVai//PbSm0IYPKufMwJkHEL9oD4/REpphQRa6R4ifcYSKamK90ts2RuwKOC/y4lH4gEeL3+/x/vS6Oe66x9iI6UxFaxFCGgzw7T3MfLqmt5I324GZsDjr+etUe8acGs8y5ssZPjn9TRKkI2H3/1DMHWzuP6IICxWgiPExi6c75EME9foCmGdWap+c6IU0bmz53ZI16EojlJgt2VgSOYMm7B9vfHYrUO00XhpTv2yerthvNBDJSDYxqCUAbDemdTx5NyNn1YvHgJn8mX7dmBNkT9s5m/c2V0qN4mPNEguloNEpFz3/xk7WnFLXlFYggkgL/scCAS2YutpgbCKOQRicCao/IJQl2/2eE3YofDMwBVRAYXAQTXIBlSNBRn20LW4fFToyNbU0xIkIIodjrjlavGwfCwBO0rsw/uImKYEZkl6waYbNW74wbRs1LOuSIekq8NA2rRtQE9sKKNXP4WfaQKrx0q1lZfMCrGc/eweS8jLKOY="
+    repo: ggreco/wydecoder
+  skip_cleanup: 'true'

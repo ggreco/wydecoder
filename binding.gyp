@@ -19,6 +19,9 @@
         "utils",
         "ext_inc"
       ],
+      "libraries": [  
+        '-lavcodec', '-lavformat', '-lavutil', '-lswscale', '-lswresample', '-lSDL2', '-lfdk-aac', '-lx264', '-lz', '-lbz2'
+      ],
       'defines': [ ],
       'conditions': [
         ['OS=="mac"', {
@@ -28,18 +31,10 @@
             'GCC_ENABLE_CPP_RTTI': 'YES'
           },
           'libraries' : [
-              '../extlib_osx/libavformat.a',
-              '../extlib_osx/libavcodec.a',
-              '../extlib_osx/libavutil.a',
-              '../extlib_osx/libswresample.a',
-              '../extlib_osx/libswscale.a',
-              '../extlib_osx/libSDL2.a',
-              '../extlib_osx/libx264.a',
-              '../extlib_osx/libfdk-aac.a',
+              '-L../extlib_osx',
               '-framework Cocoa',
               '-framework CoreAudio',
-              '-framework AudioToolbox',
-              '-lz', '-lbz2', '-llzma'
+              '-framework AudioToolbox'
           ],
           'include_dirs': [ "ext_inc/SDL2", "ext_inc_mac" ]
         }],
@@ -47,14 +42,7 @@
           'cflags': [ "-fPIC" ],
           'ldflags': [ "-Wl,-Bsymbolic" ],
           'libraries' : [
-              '../extlib_linux/libavformat.a',
-              '../extlib_linux/libavcodec.a',
-              '../extlib_linux/libavutil.a',
-              '../extlib_linux/libswresample.a',
-              '../extlib_linux/libswscale.a',
-              '../extlib_linux/libx264.a',
-              '../extlib_linux/libfdk-aac.a',
-              '-lSDL2', '-lz', '-lbz2', '-llzma', 
+              "<!@(node -e \"console.log('-L../extlib_linux/%s',require('process').arch);\")"
               '-lssl', '-lcrypto', '-lrt', '-ldl'
           ],
           'include_dirs': [ "/usr/include/SDL2" ]
@@ -62,14 +50,7 @@
         ['OS=="win"', {
           'include_dirs': [ "ext_inc/SDL2", "ext_inc_win" ],
           'libraries' : [
-              '../extlib_w64/libavformat.a',
-              '../extlib_w64/libavcodec.a',
-              '../extlib_w64/libavutil.a',
-              '../extlib_w64/libswresample.a',
-              '../extlib_w64/libswscale.a',
-              '../extlib_w64/libSDL2.a',
-              '../extlib_w64/libx264.a',
-              '../extlib_w64/libfdk-aac.a',
+              "<!@(node -e \"console.log('-L../extlib_win/%s',require('process').arch);\")",
               '-lz', '-lbz2'
           ],
           "msvs_settings": {
