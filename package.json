@@ -12,8 +12,7 @@
   "author": "Gabriele Greco (gabriele.greco@wyscout.com)",
   "scripts": {
     "prebuild": "prebuildify --napi",
-    "install": "node-gyp-build",
-    "postinstall": "rm -rf ext_inc extlib_*"
+    "install": "node-gyp-build"
   },
   "bugs": {
     "url": "https://github.com/wyscout/node-video/issues"

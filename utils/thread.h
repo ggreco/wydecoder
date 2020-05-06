@@ -1,6 +1,4 @@
-#ifndef NAMED_THREAD_H
-
-#define NAMED_THREAD_H
+#pragma once
 
 #include <string>
 #include <thread>
@@ -30,5 +28,3 @@ public:
 	void join() { if (th_.joinable()) th_.join(); }
     static void *threadfunc(void *);
 };
-
-#endif

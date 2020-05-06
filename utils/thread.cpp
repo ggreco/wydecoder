@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include "logger.h"
-#include <unistd.h>
 #include <string.h>
 
 thread_local Thread *ptr = NULL;
@@ -93,7 +92,7 @@ void Thread::terminate(int total_wait)
     running_ = false;
 
     while ((!done_) && (die_wait++ < total_wait))
-        usleep(10000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
     if (die_wait >= 100) {
         done_ = true;

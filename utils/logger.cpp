@@ -1,15 +1,22 @@
 #include "logger.h"
+
 #include "thread.h"
-#include <string.h>
+#include <cstring>
 
 #ifndef WIN32
 #include <syslog.h>
 #else
+
+#pragma warning( disable : 4996 )
 #undef localtime_r
 #define localtime_r(x, y) localtime(x)
+#define IGNORE_REMOTE_LOG
+
 #endif
 
-#include <stdarg.h>
+#include <cstdarg>
+
+// This should be resolved better in the future
 
 // API C per il logger
 extern "C" {
@@ -83,9 +90,12 @@ PrintDebugLog(const std::string &logname, const std::string &dst)
 	if ((long)l > size_) {
 		fclose(f);
 
-        struct tm mytm;
+        //struct tm mytm;
         time_t now = time(NULL);
-
+        // NOTE: only windows has a threadsafe localtime that does not need this
+#ifndef WIN32
+        struct tm mytm;
+#endif
         if (struct tm *res = localtime_r(&now, &mytm)) {
             char buffer[100];
 
@@ -131,7 +141,6 @@ PrintDebugLog(const std::string &logname, const std::string &dst)
   \return void
 */
 
-static const char *errlevel[] = {"SYS", "ERR", "WRN", "INF", "DBG", "UND", "UND" };
 
 #ifndef WIN32
 static int syslog_level[] = {LOG_NOTICE, LOG_ERR, LOG_WARNING, LOG_INFO, LOG_DEBUG, LOG_INFO};
@@ -153,6 +162,8 @@ Logger::FormatString(const char *file, int line, int level, const std::string &l
         case LogToFile:
         case LogToRemote:
             {
+#ifndef IGNORE_REMOTE_LOG
+
                 struct tm localtm;
                 char datebuffer[100];
                 std::ostringstream logline;
@@ -187,6 +198,8 @@ Logger::FormatString(const char *file, int line, int level, const std::string &l
                     RemoteLog(logline.str());
                 else
                     PrintDebugLog(logname + ext_, logline.str());
+#endif
+
             }
             break;
         case LogToSystem:
@@ -218,6 +231,7 @@ void Logger::
 remote(const std::string &host, unsigned short port) {
     std::unique_lock<std::mutex> lock(cs_);
 
+#ifndef IGNORE_REMOTE_LOG
     remote_addr_ = host;
     remote_port_ = port;
     dest_ = LogToRemote;
@@ -226,11 +240,13 @@ remote(const std::string &host, unsigned short port) {
         closesocket(socket_);
         socket_ = -1;
     }
+#endif
 }
 
 void Logger::
 RemoteLog(const void *line, size_t len)
 {
+#ifndef IGNORE_REMOTE_LOG
     if (socket_ < 0) {
         memset(&address_, 0, sizeof(address_));
         address_.sin_addr.s_addr = inet_addr(remote_addr_.c_str());
@@ -245,6 +261,7 @@ RemoteLog(const void *line, size_t len)
         ::sendto(socket_, line, len, 0L, (sockaddr *)&address_, sizeof(address_));
 #else
         ::sendto(socket_, (const char *)line, len, 0L, (sockaddr *)&address_, sizeof(address_));
+#endif
 #endif
 }
 

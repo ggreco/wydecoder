@@ -1,9 +1,10 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
 #ifdef WIN32
-#ifndef _WINDOWS_
 #include <winsock2.h>
+#ifndef _WINDOWS_
+//#define NOMINMAX
+#include <windows.h>
 #endif
 #else
 #include <sys/socket.h>
@@ -28,33 +29,37 @@ extern "C" {
 }
 #endif
 
-#define slog(args...) debugf(__FILE__, __LINE__, T_S, ##args)
-#define elog(args...) debugf(__FILE__, __LINE__, T_E, ##args)
-#define wlog(args...) debugf(__FILE__, __LINE__, T_W, ##args)
-#define ilog(args...) debugf(__FILE__, __LINE__, T_I, ##args)
-#define dlog(args...) debugf(__FILE__, __LINE__, T_D, ##args)
+#define slog(args,...) debugf(__FILE__, __LINE__, T_S, ##args)
+#define elog(args,...) debugf(__FILE__, __LINE__, T_E, ##args)
+#define wlog(args,...) debugf(__FILE__, __LINE__, T_W, ##args)
+#define ilog(args,...) debugf(__FILE__, __LINE__, T_I, ##args)
+#define dlog(args,...) debugf(__FILE__, __LINE__, T_D, ##args)
 
 #ifdef __cplusplus
 
+#include <functional>
 #include <iostream>
 #include <sstream>
-#include <fstream>
 #include <iomanip>
 
 #include <mutex>
 
 // oggetto logger
 
-#define Trace(x, args...) Logger::Instance().trace(__FILE__, __LINE__, x, ##args)
+#define Trace(x, args,...) Logger::Instance().trace(__FILE__, __LINE__, x, ##args)
 #define VTrace(x, y, z) Logger::Instance().vtrace(__FILE__, __LINE__, x, y, z)
 #define SetLog Logger::Instance().set
 #define SetAppName(x) Logger::Instance().name(x)
 #define LOG_INSTANCE Logger::Instance()
 
+static const char *errlevel[] = { "SYS", "ERR", "WRN", "INF", "DBG", "UND", "UND" };
+
 class Logger
 {
     public:
-        typedef void (*LogCbk)(const std::string &file, int line, int level, const std::string &name, const std::string &body);
+        typedef std::function<void(const std::string &file, int line, int level, const std::string &name, const std::string &body)> LogCbk;
+        //typedef void (*LogCbk)(const std::string &file, int line, int level, const std::string &name, const std::string &body);
+
         enum LogDest {LogToFile, LogToSystem, LogToRemote, LogToStdout, LogToStderr, LogToCustom, LogToNone};
         typedef void (*RegisterLogCbk)(const std::string &appname, int level);
     private:
@@ -175,4 +180,3 @@ inline std::string classMethodStr(const std::string& str_i)
 #define __CLASS_METHOD__ classMethodStr(__PRETTY_FUNCTION__)
 #endif
 #endif /* cplusplus */
-#endif
